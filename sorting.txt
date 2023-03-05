@@ -1,0 +1,31 @@
+# bubble sort
+
+num = [98, 64, 0, 72, 1069, 23, 4, 2.5, 420.69, 72]
+
+for j in range(0, 1069):
+    check_for_swap = False
+    for i in range(0, 1069):
+        if num[i] > num[i + 1]:
+            swap = num[i]
+            num[i] = num[i + 1]
+            num[i + 1] = swap
+            check_for_swap = True
+    if not check_for_swap:
+        break
+print(num)
+
+
+
+#selection sort
+l= [-98,64,0,72,1069,23,4,2.5,-420.69,72]
+
+for i in range(len(l)):
+    min_idx=i
+    for j in range(i+1, len(l)):
+        if l[j] < l[min_idx]:
+          min_idx = j
+     l[i], l[min_idx] =l[min_idx], l[i]
+print(l)
+
+
+

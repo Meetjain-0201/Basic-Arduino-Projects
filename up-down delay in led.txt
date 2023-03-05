@@ -1,0 +1,23 @@
+const int ledpin = 13;
+
+void setup() {
+  pinMode(ledpin, OUTPUT);
+  Serial.begin(9600);
+}
+
+void loop() {
+  static int dp = 1000;
+  static int cd = 1;
+  digitalWrite(ledpin, HIGH);
+  delay(dp);
+  digitalWrite(ledpin, LOW);
+  delay(1000);
+  {
+  dp = dp + 1000*cd;
+  } 
+ 
+  if ((dp == 10000) || (dp == 0))
+  {
+  cd = cd * -1;
+  }
+}

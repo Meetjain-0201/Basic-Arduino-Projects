@@ -1,0 +1,393 @@
+arduino tasks
+
+1].LED BLINK USING PUSH BUTTON
+
+void setup()
+{
+
+  pinMode(2, INPUT);
+  pinMode(13, OUTPUT);
+}
+
+void loop()
+{
+  if(digitalRead(2) == 1)
+  {
+    digitalWrite(13,HIGH);
+  }
+  else
+  {
+    digitalWrite(13,LOW);
+  }
+} 
+
+
+2].LED TOGGLES USING PUSH BUTTON
+
+
+
+
+
+
+3].LED BRIGHTNESS SWEEP USING PWM
+
+int sensorValue = 0;
+
+void setup()
+{
+  pinMode(A0, INPUT);
+  pinMode(13, OUTPUT);
+}
+
+void loop()
+{
+  // read the value from the sensor
+  sensorValue = analogRead(A0);
+  // turn the LED on
+  digitalWrite(13, HIGH);
+  // pause the program for <sensorValue> milliseconds
+  delay(sensorValue); // Wait for sensorValue milliseconds
+  // turn the LED light off
+  digitalWrite(13, LOW);
+  // pause the program for <sensorValue> milliseconds
+  delay(sensorValue); // Wait for sensorValue milliseconds
+}
+
+
+4].LED BLINK WITHOUT USING DELAY FUNCTION
+5].INTERFACE SERVO WITHOUT USING LIBRARY*
+
+#include<Servo.h>
+Servo servol;
+int pos = 0;
+void setup()
+{
+ servol.attach(13); // because 1 have connected signal pin with 13
+}
+
+void loop()
+{
+  // rotate from 0 to 180 degree
+  for(pos=0;pos<=180;pos++)
+  {
+    servol.write(pos);
+    delay(15);
+  } 
+  for(pos=180;pos>=0;pos--)
+  {
+    servol.write(pos);
+    delay(15);
+  }
+} 
+
+
+6].USE ULTRASONIC SENSOR TO DISPLAY DISTANCE*
+
+//defines pins number
+const int trigPin = 9;
+const int echoPin = 10;
+long duration;
+int distance;
+void setup()
+{ 
+ // put your setup code here, to run up once:
+ pinMode(trigPin , OUTPUT);
+ pinMode(echoPin , INPUT);
+ Serial.begin(9600);
+}
+
+void loop()
+{
+ // put your main code here, to run repeatedly:
+ // clear trig pin
+  digitalWrite(trigPin,LOW);
+  delayMicroseconds(2);
+
+  digitalWrite(trigPin,HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin,LOW);
+
+  duration = pulseIn(echoPin , HIGH);
+
+  distance = duration*0.034/2;
+
+  Serial.print("distance : ");
+  Serial.printIn(distance);
+}
+
+
+7].LED blinking control using potentiometer*
+
+int sensorValue = 0;
+  
+void setup()
+{
+  pinMode(A0, INPUT);
+  pinMode(13, OUTPUT);
+}
+
+void loop()
+{
+  // read the value from the sensor
+  sensorValue = analogRead(A0);
+  // turn the LED on
+  digitalWrite(13, HIGH);
+  // pause the program for <sensorValue> milliseconds
+  delay(sensorValue); // Wait for sensorValue milliseconds
+  // turn the LED light off
+  digitalWrite(13, LOW);
+  // pause the program for <sensorValue> milliseconds
+  delay(sensorValue); // Wait for sensorValue milliseconds
+} 
+
+
+8].FIBONACCI SEQUENCE*
+
+const int LED = 13;
+const int BUTTON = 7;
+int val = 0;
+int fib2 = 0;
+int fib1 = 1;
+int fib = 1;
+
+void setup() {
+  pinMode(LED,OUTPUT);
+  pinMode(BUTTON,INPUT);
+
+}
+
+void loop() {
+  val = digitalRead(BUTTON);
+  if(val==HIGH){
+   if(fib==1){digitalWrite(LED,HIGH);
+      delay(100);
+      digitalWrite(LED,LOW);
+      delay(100);}
+
+   else{for(int n = 0; n < fib; n=n+1){
+        digitalWrite(LED,HIGH);
+        delay(100);
+        digitalWrite(LED,LOW);
+        delay(100);}}
+
+         fib = fib1 + fib2;
+         fib2 = fib1;
+         fib1 = fib;}
+ else{digitalWrite(LED,LOW);}
+}
+
+
+9].3 BIT COUNTER*
+
+//3 bit
+int p1=2;
+int p2=3;
+int p3=4;
+
+int buttonPin=12;
+int wait=1000;
+
+int N=0;
+
+int state=0;
+int previousState=0;
+
+
+void one()
+{
+ //001
+digitalWrite(p1,LOW);
+digitalWrite(p2,LOW);
+digitalWrite(p3,HIGH);
+//delay(wait);
+}
+
+void two()
+{
+ //010
+digitalWrite(p1,LOW);
+digitalWrite(p2,HIGH);
+//delay(wait);
+digitalWrite(p3,LOW);
+}
+
+void three()
+{
+ //011
+digitalWrite(p1,LOW);
+digitalWrite(p2,HIGH);
+//delay(wait);
+digitalWrite(p3,HIGH);
+//delay(wait);
+}
+
+void four()
+{
+ //100
+digitalWrite(p1,HIGH);
+//delay(wait);
+digitalWrite(p2,LOW);
+digitalWrite(p3,LOW);
+}
+
+void five()
+{ 
+//101
+digitalWrite(p1,HIGH);
+//  delay(wait);
+digitalWrite(p2,LOW);
+digitalWrite(p3,HIGH);
+//delay(wait);
+}
+void six()
+{
+//110
+digitalWrite(p1,HIGH);
+//delay(wait);
+digitalWrite(p2,HIGH);
+//delay(wait);
+digitalWrite(p3,LOW);
+//delay(wait);
+}
+void seven()
+{
+//111
+
+digitalWrite(p1,HIGH);
+//delay(wait);
+digitalWrite(p2,HIGH);
+//delay(wait);
+digitalWrite(p3,HIGH);
+//delay(wait);
+
+N=0;
+}
+
+
+void setup()
+{
+pinMode(p1,OUTPUT);
+pinMode(p2,OUTPUT);
+pinMode(p3,OUTPUT);
+
+pinMode(buttonPin,INPUT);
+  
+Serial.begin(9600); 
+  
+}
+
+void loop()
+{
+//int N=0;
+ 
+  state=digitalRead(buttonPin);
+ 
+  
+ if(state!=previousState)
+  {
+     if(state==HIGH)
+        N++;
+    Serial.println(N);
+  }
+    //delay(50);
+  
+  previousState=state;  
+ 
+  
+switch(N)
+{
+case 1:
+one();   break;
+case 2:
+two();   break;
+case 3:
+three(); break;
+case 4:
+four(); break;
+case 5:
+five(); break;
+case 6:
+six();   break;
+case 7:
+   seven();
+  break;
+}//switch
+
+  }//loop
+
+10].SPI
+11].I2C*
+
+Master Demo
+#include <Wire.h>
+int pushButton = A0;
+int x = 0;
+void setup()
+{
+  Wire.begin();
+  pinMode(pushButton, INPUT);
+}
+
+void loop()
+{
+   Wire.beginTransmission(1);
+   x = digitalRead(pushButton);
+   Wire.write(x);
+   Wire.endTransmission();
+   delay(500);
+}  
+
+slave demo
+#include <Wire.h>
+int pinLed = 13;
+int x = 0;
+
+
+void setup () 
+{
+  Wire.begin(1);
+  Wire.onReceive(receiveEvent);
+  pinMode(pinLed, OUTPUT);
+}
+void loop() 
+{
+  delay (100);
+}
+void receiveEvent(int howMany)
+{
+  x = Wire.read();
+    if (x == 1)
+    {
+          digitalWrite(pinLed, HIGH);
+    }
+    else
+    {
+          digitalWrite(pinLed, LOW);
+    }  
+}  
+
+
+
+12].UART                           
+13].LED brightness control using potentiometer
+
+#define LED 9
+#define pot A0
+
+int potReading = 0;
+
+void setup ()
+{
+ Serial.begin(9600);
+   pinMode(LED, OUTPUT);
+   pinMode(pot, INPUT);
+
+}
+
+void loop()
+{
+   potReading = analogRead(pot);
+   potReading = map(potReading, 0, 1023, 0, 255);
+   Serial.println(potReading);
+   analogWrite(LED, potReading);
+} 
